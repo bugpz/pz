@@ -1,0 +1,55 @@
+{% extends 'yy/base.html' %}
+{% block title %}BUGPZ{% endblock %}
+{% block content %}
+<style type="text/css">
+    table{
+        background-color: cyan;
+    }
+</style>
+    {% if request.session.is_login %}
+    <h1>你好,{{ request.session.user_name }}！欢迎回来！</h1>
+
+    <table>
+        {% for data1 in yy_article %}
+        <tr>
+            <th>   标题 </th>
+            <th>    内容    </th>
+        </tr>
+        <tr>
+            <td>{{data1.title}}</td>
+            <td>{{data1.body}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <form method="post" action="/uploadFiles/" enctype="multipart/form-data">
+    {% csrf_token %}
+        <input type="file" name="xFile">
+        <input type="submit" value="上传">
+    </form>
+    {% else %}
+    <h1>
+        <a href="https://www.aliyun.com/minisite/goods?userCode=qet4zxjy" style="color: crimson">
+        阿里云产品长期活动
+        </a>
+    </h1>
+    <h1>你尚未登录，只能访问公开内容！</h1>
+    <h2>TestUser:</h2>
+    <table border="2">
+        <thead>
+        <tr>
+            <th> 帐号</th>
+            <th>密码</th>
+        </tr>
+        </thead>
+        {% for date in yy_user %}
+
+        <tr>
+            <td>{{date.username}}</td>
+            <td>{{date.password}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+<!--    <h1>暂停开发</h1>-->
+
+{% endblock %}
