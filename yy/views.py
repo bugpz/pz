@@ -3,12 +3,12 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse
 
 from pztop import settings
-from yy import models
+from yy import models,views
 from .forms import UserForm,RegisterForm
 from .models import Article,User
 from django.views.generic import View
 from django.contrib.auth.hashers import make_password,check_password
-import pymysql ,datetime,os
+import pymysql ,datetime,os,time
 
 # Create your views here.
 # def get_loan_number(file):
@@ -168,6 +168,7 @@ def user_confirm(request):
         return render(request, 'login/confirm.html', locals())
 
 def uploadFiles(request):
+
     if request.method == "GET":
         return render(request, 'index.html')
     else:
@@ -179,4 +180,7 @@ def uploadFiles(request):
         with open(filePath, 'wb') as fp:
             for xFileStream in xFile.chunks():
                 fp.write(xFileStream)
-                return HttpResponse("上传成功")
+
+                return redirect('/index/')
+
+
