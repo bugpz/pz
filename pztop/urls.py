@@ -16,6 +16,8 @@ Including another URLconf
 #coding:utf-8
 from django.contrib import admin
 from django.urls import path,re_path
+from django.conf.urls.static import static
+from django.conf import settings
 from django.views.generic.base import RedirectView
 from yy import views
 import xadmin
@@ -29,4 +31,4 @@ urlpatterns = [
     path(r'logout/',views.logout),
     path(r'index/',views.index),
     path(r'uploadFiles/',views.uploadFiles)
-]
+] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

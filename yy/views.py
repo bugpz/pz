@@ -173,14 +173,15 @@ def uploadFiles(request):
         return render(request, 'index.html')
     else:
         #接受前端传来的文件
-        xFile = request.FILES["xFile"]
+        xFile = request.FILES.getlist('xFile')  #["xFile"]
         # 将传来的文件保存至/settings.py中自定义设定的MDEIA_ROOT目录upload中，
         # 并且文件名用传来的文件名命名
-        filePath = os.path.join(settings.MEDIA_ROOT, xFile.name)
-        with open(filePath, 'wb') as fp:
-            for xFileStream in xFile.chunks():
-                fp.write(xFileStream)
+        for f_name in xFile:
+            filePath = os.path.join(settings.MEDIA_ROOT, f_name.name)
+            with open(filePath, 'wb') as fp:
+                for xFileStream in f_name.chunks():
+                    fp.write(xFileStream)
 
-                return redirect('/index/')
+                    return render(request,'yy/uploadfiles.html')
 
 

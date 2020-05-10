@@ -55,6 +55,20 @@
 
       </div><!-- /.container-fluid -->
     </nav>
+    <!-- 导航栏  -->
+    <ul id="daohang" class="nav nav-tabs">
+      {% if request.session.is_login %}
+        <li><a href="python">python</a></li>
+        <li><a href="linux">服务器</a></li>
+        <li><a href="django">django</a></li>
+        <li><a href="problem">开发过程中遇到的各种问题解决方法</a></li>
+      {% else %}
+        <p>导航栏已隐藏，请登陆后查看</p>
+      {% endif %}
+    </ul>
+    <nav>
+
+    </nav>
 
     {% block content %}{% endblock %}
     {% load staticfiles %}
