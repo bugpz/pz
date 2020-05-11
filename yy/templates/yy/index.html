@@ -2,6 +2,8 @@
 {% block title %}BUGPZ{% endblock %}
 {% block content %}
 <link href="/static/bootstrap-3.3.7-dist/css/bootstrap.css">
+<script src="/static/js/jquery-3.4.1.js"></script>
+<script src="/static/js/upload.js"></script>
 <style type="text/css">
     table{
         background-color: cyan;
@@ -23,11 +25,12 @@
         {% endfor %}
     </table>
     <!--  文件上传   -->
+<button id="add_file" onclick="add()">增加</button>
     <form method="post" action="/uploadFiles/" enctype="multipart/form-data"id="uploadform">
     {% csrf_token %}
-        <input type="file" name="xFile" id="upload_input">
-<!--        <script src="/static/js/upload.js"></script>-->
-        <input type="submit" value="上传" id="test">
+<!--        <input type="file" name="xFile" id="upload_input">-->
+<!--        <input type="submit" value="上传" id="test">-->
+
     </form>
     {% else %}
     <h1>
