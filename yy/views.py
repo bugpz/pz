@@ -8,7 +8,7 @@ from .forms import UserForm,RegisterForm
 from .models import Article,User
 from django.views.generic import View
 from django.contrib.auth.hashers import make_password,check_password
-import pymysql ,datetime,os,time
+import pymysql ,datetime,os,time,logging
 
 # Create your views here.
 # def get_loan_number(file):
@@ -173,15 +173,13 @@ def uploadFiles(request):
         return render(request, 'index.html')
     else:
         #接受前端传来的文件
-        xFile = request.FILES.getlist('xFile')  #["xFile"]
+        upfiles = request.FILES.getlist('xFile')#["xFile"]
         # 将传来的文件保存至/settings.py中自定义设定的MDEIA_ROOT目录upload中，
         # 并且文件名用传来的文件名命名
-        for f_name in xFile:
-            filePath = os.path.join(settings.MEDIA_ROOT, f_name.name)
-            with open(filePath, 'wb') as fp:
-                for xFileStream in f_name.chunks():
-                    fp.write(xFileStream)
-
-                    return render(request,'yy/uploadfiles.html')
-
-
+        for i in upfiles:
+            saveurl = os.path.join(settings.MEDIA_ROOT,i.name)
+            with open(saveurl,'wb') as fp:
+                for j in i.chunks():
+                    fp.write(j)
+                fp.close()
+        return render(request,'yy/uploadfiles.html')
