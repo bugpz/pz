@@ -31,5 +31,6 @@ class GlobalSetting(object):
 # xadmin.site.register(Article,ArticleAdmin)
 xadmin.site.register(views.CommAdminView,GlobalSetting)
 xadmin.site.register(User,UserAdmin)
+xadmin.site.register(Article,ArticleAdmin)
 xadmin.site.site_header = 'BUGPZ后台'
 xadmin.site.site_title = 'BUGPZ.TOP'
