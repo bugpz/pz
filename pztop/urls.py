@@ -30,5 +30,6 @@ urlpatterns = [
     path(r'login/',views.login),
     path(r'logout/',views.logout),
     path(r'index/',views.index),
-    path(r'uploadFiles/',views.uploadFiles)
+    path(r'uploadFiles/',views.uploadFiles),
+    path(r'robots.txt/',views.robots)
 ] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

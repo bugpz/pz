@@ -1,0 +1,22 @@
+<h6 style="color: #31b0d5">
+此套代码为WEB学习代码
+</h6>
+
+<p>
+项目启动方式:python manage.py runserver
+</p>
+<h5>
+Ubuntu环境下:<br>
+项目位置在 /data/pz
+</h5>
+
+```
+首先切换到manage.py所在位置
+cd /data/pz/
+sudo python3 manage.py runserver
+
+启动成功会返回一个url  点击url访问
+```
+
+
+

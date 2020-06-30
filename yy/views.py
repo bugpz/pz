@@ -183,3 +183,15 @@ def uploadFiles(request):
                     fp.write(j)
                 fp.close()
         return render(request,'yy/uploadfiles.html')
+
+def robots(request):
+    return HttpResponse(
+        '<span>User-agent:BaiduSpider</span><br>'
+        '<span>Disallow:</span><br>'
+        '<br>'
+        '<span>User-agent:Googlebot</span><br>'
+        '<span>Disallow:</span><br>'
+        '<br>'
+        '<span>User-agent:*</span><br>'
+        '<span>Disallow:/</span><br>'
+                    )
