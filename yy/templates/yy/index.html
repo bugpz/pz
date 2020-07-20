@@ -13,18 +13,12 @@
     {% if request.session.is_login %}
 <!--    <h1>你好,{{ request.session.user_name }}！欢迎回来！</h1>-->
 
-    <table>
-        {% for data1 in yy_article %}
-        <tr>
-            <th>   标题 </th>
-            <th>    内容    </th>
-        </tr>
-        <tr>
-            <td>{{data1.title}}</td>
-            <td>{{data1.body}}</td>
-        </tr>
+        {% for data in art %}
+        <div>
+            <a href="{% url 'yy:page' data.id %}">{{ data.title }}</a>
+        </div>
         {% endfor %}
-    </table>
+
     <!--  文件上传   -->
 <button id="add_file" onclick="add()">增加</button>
     <form method="post" action="/uploadFiles/" enctype="multipart/form-data"id="uploadform">
@@ -39,23 +33,6 @@
         阿里云产品长期活动
         </a>
     </h1>
-    <h1>你尚未登录，只能访问公开内容！</h1>
-    <h2>TestUser:</h2>
-    <table border="2">
-        <thead>
-        <tr>
-            <th> 帐号</th>
-            <th>密码</th>
-        </tr>
-        </thead>
-        {% for date in yy_user %}
-
-        <tr>
-            <td>{{date.username}}</td>
-            <td>{{date.password}}</td>
-        </tr>
-        {% endfor %}
-    </table>
     {% endif %}
 
 <div style="width: 100% ;height: 19%;margin: 0 auto;bottom: 52px;position: absolute;text-align: center;padding-left: 20%;padding-right: 20%" id="Navigation">

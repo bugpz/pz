@@ -1,4 +1,5 @@
 from django.db import models
+from ckeditor_uploader.fields import  RichTextUploadingField
 #如果数据库中的UserInfo(用户表)继承django内置AbstractUser 则需要导入下面的包
 # from django.contrib.auth.models import AbstractUser
 # 并在settings文件添加AUTH_USER_MODEL = "应用名.UserInfo"
@@ -8,7 +9,7 @@ import pymysql
 
 class Article(models.Model):
     title = models.CharField('标题',max_length=70)
-    body = models.TextField('内容',max_length=200,blank=True)
+    body = RichTextUploadingField('内容',max_length=200,blank=True)
     created_time = models.DateTimeField('发布时间')
 
     def __str__(self):

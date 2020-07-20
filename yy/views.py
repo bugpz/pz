@@ -38,13 +38,11 @@ import pymysql ,datetime,os,time,logging
 
 
 def index(request):
-    yy_user = models.User.objects.all().order_by('-id')
-    yy_article = models.Article.objects.all().order_by('-id')
-    context = {
-        'yy_user':yy_user,
-        'yy_article':yy_article
+    art = models.Article.objects.all().order_by('id')
+    artlist = {
+        'art': art
     }
-    return render(request,'yy/index.html',context)
+    return render(request,'yy/index.html',artlist)
     # #文件上传
     # if request.method == "GET":
     #     return render(request, 'index.html')
@@ -195,3 +193,17 @@ def robots(request):
         '<span>User-agent:*</span><br>'
         '<span>Disallow:/</span><br>'
                     )
+
+# def article(request):
+#     art = models.Article.objects.all().order_by('id')
+#     artlist = {
+#         'art':art
+#     }
+#     return render(request,'yy/article.html',artlist)
+
+def articleinfo(request,article_id):
+    article = models.Article.objects.values('body','id','title','created_time').filter(id=article_id)
+    articlelist = {
+        'article':article
+    }
+    return render(request,'yy/article.html',articlelist)

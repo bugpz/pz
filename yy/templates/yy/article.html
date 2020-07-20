@@ -1,0 +1,11 @@
+{% extends 'yy/base.html' %}
+{% block content %}
+    {% load staticfiles %}
+    {% for data in article %}
+        <div>
+            <h1 id="">{{ data.title }}</h1>
+            <p id="body-content">{{ data.body }}</p>
+        </div>
+    {% endfor %}
+    <div>ddf</div>
+{% endblock %}

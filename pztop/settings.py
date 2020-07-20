@@ -42,6 +42,9 @@ INSTALLED_APPS = [
     'yy',
     'xadmin',
     'crispy_forms',
+    # 富文本编辑器
+    'ckeditor',
+    'ckeditor_uploader'
 ]
 #中间件
 MIDDLEWARE = [
@@ -223,3 +226,7 @@ EMAIL_HOST_USER = '939557447@qq.com' #发送服务器的用户名；
 EMAIL_HOST_PASSWORD = '559951103' #对应用户的密码
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 CONFIRM_DAYS = 7
+
+# Ckeditor配置 富文本编辑器
+CKEDITOR_UPLOAD_PATH = "static/upload"
+CKEDITOR_IMAGE_BACKEND = "pillow"
