@@ -207,3 +207,6 @@ def articleinfo(request,article_id):
         'article':article
     }
     return render(request,'yy/article.html',articlelist)
+
+def Navigation(request):
+    return render(request,'yy/Navigation.html')

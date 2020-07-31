@@ -33,6 +33,7 @@ urlpatterns = [
     path(r'index/',views.index),
     path(r'uploadFiles/',views.uploadFiles),
     path(r'robots.txt/',views.robots),
+    path(r'Navigation/',views.Navigation),
     # 富文本编辑器
     path('ckeditror/',include('ckeditor_uploader.urls')),
     # path(r'article/',views.article),

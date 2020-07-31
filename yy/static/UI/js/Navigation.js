@@ -24,7 +24,7 @@ onload = function navigation() {
                 'http://www.xiachufang.com/':'xiachufang'
                 }
     for(var i in body){
-        $(d).append('<a  style="padding-right:10%;"  href='+i +' '+' target="_blank">\n' +
+        $(d).append('<a  style="padding-right:20%;"  href='+i +' '+' target="_blank">\n' +
         '        <img src="/static/UI/icon/'+body[i]+'.png\  ">\n' +
         '        <span data-v-ed292c2c="">'+body[i]+'</span>\n' +
         '    </a>')
