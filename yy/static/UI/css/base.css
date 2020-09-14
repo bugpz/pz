@@ -19,3 +19,18 @@
     background-size: 50px;
     background-image: url("../img/re_top.png");
 }
+.bgp{
+    background: url("../img/bgt.jpg") repeat center 200% fixed;
+    /*background-color 背景颜色*/
+    /*background-image   背景图片地址*/
+    /*background-repeat  是否平铺 默认是平铺*/
+    /*background-position 背景位置  (模式是左上角 0 0) 方位没有顺序*/
+    /*    1.（length 长度 ）写精确单位 或者百分比 第一个值是x坐标 第二个一定是y*/
+    /*    2.（position： top|center | bottom | left | right  方位坐标）*/
+    /*      如果方位名词只写一个  另外一个默认为center*/
+    /*    3.混搭也ok*/
+    /*background-attachment 设置背景图是否固定 默认是scroll, fixed是固定*/
+
+    /*合写： background： 背景颜色 背景图片地址 背景平铺 背景滚动 背景位置*/
+    /*background: #000 url(image/sst.jpg) no-repeat center -25px fixed;}*/
+}

@@ -1,6 +1,7 @@
 from django.db import models
-from ckeditor_uploader.fields import  RichTextUploadingField
-#如果数据库中的UserInfo(用户表)继承django内置AbstractUser 则需要导入下面的包
+from ckeditor_uploader.fields import RichTextUploadingField
+from django.contrib.auth.models import User
+# 如果数据库中的UserInfo(用户表)继承django内置AbstractUser 则需要导入下面的包
 # from django.contrib.auth.models import AbstractUser
 # 并在settings文件添加AUTH_USER_MODEL = "应用名.UserInfo"
 # Create your models here.

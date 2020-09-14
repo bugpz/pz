@@ -1,40 +1,16 @@
-#coding:utf-8
-from django.shortcuts import render,redirect
+# coding:utf-8
+import datetime
+import os
+
+from django.contrib import auth
+from django.contrib.auth.hashers import make_password
+from django.contrib.auth.models import User
 from django.http import HttpResponse
+from django.shortcuts import render, redirect
 
 from pztop import settings
-from yy import models,views
-from .forms import UserForm,RegisterForm
-from .models import Article,User
-from django.views.generic import View
-from django.contrib.auth.hashers import make_password,check_password
-import pymysql ,datetime,os,time,logging
-
-# Create your views here.
-# def get_loan_number(file):
-#     connect = pymysql.Connect(
-#         host="139.196.94.33",
-#         port=3306,
-#         user="root",
-#         passwd="bugpz559",
-#         db="YY",
-#         charset='utf8'
-#     )
-#     # print("写入中，请等待……")
-#     cursor = connect.cursor()
-#     usersql = 'select password from auth_user where'
-#     sql = "select password from auth_user"
-#     cursor.execute(sql)
-#     number = cursor.fetchall()
-#     fp = open('数据库测试.txt', "w")
-#     loan_count = 0
-#     for loanNumber in number:
-#         loan_count += 1
-#         fp.write(loanNumber[0] )
-#     fp.close()
-#     cursor.close()
-#     connect.close()
-#     print("写入完成,共写入%d条数据……" % loan_count)
+from yy import models
+from .forms import UserForm, RegisterForm
 
 
 def index(request):
@@ -42,20 +18,8 @@ def index(request):
     artlist = {
         'art': art
     }
-    return render(request,'yy/index.html',artlist)
-    # #文件上传
-    # if request.method == "GET":
-    #     return render(request, 'index.html')
-    # else:
-    #     # 接受前端传来的文件
-    #     xFile = request.FILES["xFile"]
-    #     # 将传来的文件保存至/settings.py中自定义设定的MDEIA_ROOT目录upload中，
-    #     # 并且文件名用传来的文件名命名
-    #     filePath = os.path.join(settings.MEDIA_ROOT, xFile.name)
-    #     with open(filePath, 'wb') as fp:
-    #         for xFileStream in xFile.chunks():
-    #             fp.write(xFileStream)
-    #     return HttpResponse("上传成功")
+    return render(request, 'yy/index.html', artlist)
+
 
 def register(request):
     if request.session.get('is_login', None):
@@ -68,31 +32,34 @@ def register(request):
             username = register_form.cleaned_data['username']
             password1 = register_form.cleaned_data['password1']
             password2 = register_form.cleaned_data['password2']
+            password = make_password(password1)
             email = register_form.cleaned_data['email']
             sex = register_form.cleaned_data['sex']
             if password1 != password2:  # 判断两次密码是否相同
                 message = "两次输入的密码不同！"
                 return render(request, 'yy/register.html', locals())
             else:
-                same_name_user = models.User.objects.filter(username=username)
+                same_name_user = User.objects.filter(username=username)
                 if same_name_user:  # 用户名唯一
                     message = '用户已经存在，请重新选择用户名！'
                     return render(request, 'yy/register.html', locals())
-                same_email_user = models.User.objects.filter(email=email)
+                same_email_user = User.objects.filter(email=email)
                 if same_email_user:  # 邮箱地址唯一
                     message = '该邮箱地址已被注册，请使用别的邮箱！'
                     return render(request, 'yy/register.html', locals())
 
                 # 当一切都OK的情况下，创建新用户
 
-                new_user = models.User()
+                new_user = User()
                 new_user.username = username
-                new_user.password = password1  #hash_code(password1)  # 使用加密密码
+                new_user.password = password  # hash_code(password1)  # 使用加密密码
                 new_user.email = email
-                new_user.sex = sex
+                # new_user.sex = sex
+                # new_user.is_active = True 活跃用户默认
+                new_user.is_staff = True  # 是否可以登录后台
                 new_user.save()
                 message = "恭喜你注册成功！"
-                return render(request,'yy/login.html',locals())
+                return render(request, 'yy/login.html', locals())
 
                 # code = make_confirm_string(new_user)
                 # send_email(email, code)
@@ -101,8 +68,6 @@ def register(request):
                 # return render(request, 'yy/confirm.html', locals())  # 跳转到等待邮件确认页面。
     register_form = RegisterForm()
     return render(request, 'yy/register.html', locals())
-
-
 
 
 def login(request):
@@ -116,15 +81,16 @@ def login(request):
             username = login_form.cleaned_data['username']
             password = login_form.cleaned_data['password']
             try:
-                user = models.User.objects.get(username=username)
-                if user.password == password:
+                # user = models.User.objects.get(username=username)
+                user = auth.authenticate(username=username, password=password)
+                if user.check_password(password):
                     request.session['is_login'] = True
                     request.session['user_id'] = user.id
                     request.session['user_name'] = user.username
                     return redirect('/index/')
                 else:
                     message = "密码不正确！"
-            except:
+            except AttributeError:
                 message = "用户不存在！"
         return render(request, 'yy/login.html', locals())
 
@@ -142,6 +108,7 @@ def logout(request):
     # del request.session['user_id']
     # del request.session['user_name']
     return redirect("/index/")
+
 
 def user_confirm(request):
     code = request.GET.get('code', None)
@@ -165,22 +132,23 @@ def user_confirm(request):
         message = '感谢确认，请使用账户登录！'
         return render(request, 'login/confirm.html', locals())
 
-def uploadFiles(request):
 
+def uploadFiles(request):
     if request.method == "GET":
         return render(request, 'index.html')
     else:
-        #接受前端传来的文件
-        upfiles = request.FILES.getlist('xFile')#["xFile"]
+        # 接受前端传来的文件
+        upfiles = request.FILES.getlist('xFile')  # ["xFile"]
         # 将传来的文件保存至/settings.py中自定义设定的MDEIA_ROOT目录upload中，
         # 并且文件名用传来的文件名命名
         for i in upfiles:
-            saveurl = os.path.join(settings.MEDIA_ROOT,i.name)
-            with open(saveurl,'wb') as fp:
+            saveurl = os.path.join(settings.MEDIA_ROOT, i.name)
+            with open(saveurl, 'wb') as fp:
                 for j in i.chunks():
                     fp.write(j)
                 fp.close()
-        return render(request,'yy/uploadfiles.html')
+        return render(request, 'yy/uploadfiles.html')
+
 
 def robots(request):
     return HttpResponse(
@@ -192,21 +160,16 @@ def robots(request):
         '<br>'
         '<span>User-agent:*</span><br>'
         '<span>Disallow:/</span><br>'
-                    )
+    )
 
-# def article(request):
-#     art = models.Article.objects.all().order_by('id')
-#     artlist = {
-#         'art':art
-#     }
-#     return render(request,'yy/article.html',artlist)
 
-def articleinfo(request,article_id):
-    article = models.Article.objects.values('body','id','title','created_time').filter(id=article_id)
+def articleinfo(request, article_id):
+    article = models.Article.objects.values('body', 'id', 'title', 'created_time').filter(id=article_id)
     articlelist = {
-        'article':article
+        'article': article
     }
-    return render(request,'yy/article.html',articlelist)
+    return render(request, 'yy/article.html', articlelist)
+
 
 def Navigation(request):
-    return render(request,'yy/Navigation.html')
+    return render(request, 'yy/Navigation.html')
