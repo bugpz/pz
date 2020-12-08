@@ -58,8 +58,8 @@ def register(request):
                 # new_user.is_active = True 活跃用户默认
                 new_user.is_staff = True  # 是否可以登录后台
                 new_user.save()
-                message = "恭喜你注册成功！"
-                return render(request, 'yy/login.html', locals())
+                message = "恭喜你注册成功！3秒后跳转"
+                return redirect('/wait/')
 
                 # code = make_confirm_string(new_user)
                 # send_email(email, code)
@@ -173,3 +173,6 @@ def articleinfo(request, article_id):
 
 def Navigation(request):
     return render(request, 'yy/Navigation.html')
+
+def wait(request):
+    return render(request, "yy/wait.html")

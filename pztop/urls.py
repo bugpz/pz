@@ -24,18 +24,20 @@ from yy import views
 import xadmin
 urlpatterns = [
     # path('admin/', admin.site.urls),
-    path('xadmin/',xadmin.site.urls),
-    path(r'favicon.ico',RedirectView.as_view(url=r'static/UI/img/favicon.ico')),
-    path(r'',views.index),
-    path(r'register/',views.register),
-    path(r'login/',views.login),
-    path(r'logout/',views.logout),
-    path(r'index/',views.index),
-    path(r'uploadFiles/',views.uploadFiles),
-    path(r'robots.txt/',views.robots),
-    path(r'Navigation/',views.Navigation),
+    path('xadmin/', xadmin.site.urls),
+    path(r'favicon.ico', RedirectView.as_view(url=r'static/UI/img/favicon.ico')),
+    path(r'', views.index),
+    path(r'wait/', views.wait),
+    path(r'register/', views.register),
+    path(r'login/', views.login),
+    path(r'logout/', views.logout),
+    path(r'index/', views.index),
+    path(r'uploadFiles/', views.uploadFiles),
+    path(r'robots.txt/', views.robots),
+    path(r'Navigation/', views.Navigation),
+
     # 富文本编辑器
-    path('ckeditror/',include('ckeditor_uploader.urls')),
+    path('ckeditror/', include('ckeditor_uploader.urls')),
     # path(r'article/',views.article),
-    url(r'^blog/',include('yy.urls',namespace='yy'))
-] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+    url(r'^blog/', include('yy.urls', namespace='yy'))
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
