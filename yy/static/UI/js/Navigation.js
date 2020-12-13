@@ -2,7 +2,7 @@
 onload = function navigation() {
     d = document.getElementById('Navigation')
     var body = {'https://github.com/':'github',
-                'https://www.v2ex.com/':'v2ex',
+                'https://www.v2ex.com/':'V2EX',
                 'https://www.aliyun.com/':'aliyun',
                 'https://cloud.tencent.com/':'cloudqq',
                 'https://cloud.baidu.com/':'baiduyun',
