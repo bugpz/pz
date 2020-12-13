@@ -39,14 +39,14 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="my-nav">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="/xadmin/">管理</a></li>
-            <li CLASS="active"><a href="/index/">首页</a></li>
+            <li  style="display: none" class="active"><a href="/xadmin/">管理</a></li>
+            <li class="active"><a href="/index/">首页</a></li>
             {% if request.session.is_login %}
             <li class="active"><a href="/Navigation/">外站导航</a></li>
-            <li class="active"><a href="python">python</a></li>
-            <li class="active"><a href="linux">服务器</a></li>
-            <li class="active"><a href="django">django</a></li>
-            <li class="active"><a href="problem">开发过程中遇到的各种问题解决方法</a></li>
+            <li style="display: none" class="active"><a href="python">python</a></li>
+            <li style="display: none" class="active"><a href="linux">服务器</a></li>
+            <li style="display: none" class="active"><a href="django">django</a></li>
+            <li style="display: none" class="active"><a href="problem">开发过程中遇到的各种问题解决方法</a></li>
             {% else %}
             <li style="margin-top: 15px">导航栏已隐藏，请登陆后查看</li>
             {% endif %}
