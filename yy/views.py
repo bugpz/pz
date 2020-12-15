@@ -174,5 +174,8 @@ def articleinfo(request, article_id):
 def Navigation(request):
     return render(request, 'yy/Navigation.html')
 
+
 def wait(request):
     return render(request, "yy/wait.html")
+
+

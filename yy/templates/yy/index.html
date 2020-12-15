@@ -12,13 +12,13 @@
 </style>
     {% if request.session.is_login %}
 <!--    <h1>你好,{{ request.session.user_name }}！欢迎回来！</h1>-->
-
-        {% for data in art %}
-        <div>
-            <a href="{% url 'yy:page' data.id %}">{{ data.title }}</a>
+        <div style="bottom: 30%">
+            {% for data in art %}
+                <span>
+                    <a href="{% url 'yy:page' data.id %}">{{ data.title }}</a>
+                </span><br>
+            {% endfor %}
         </div>
-        {% endfor %}
-
     <!--  文件上传   -->
 <h3 >文件上传</h3>
     <form method="post" action="/uploadFiles/" enctype="multipart/form-data"id="uploadform">
