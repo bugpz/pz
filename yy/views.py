@@ -91,7 +91,7 @@ def login(request):
                 else:
                     message = "密码不正确！"
             except AttributeError:
-                message = "用户不存在！"
+                message = "登陆信息有误，请重新输入！"
         return render(request, 'yy/login.html', locals())
 
     login_form = UserForm()
@@ -177,5 +177,3 @@ def Navigation(request):
 
 def wait(request):
     return render(request, "yy/wait.html")
-
-

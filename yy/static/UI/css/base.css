@@ -1,14 +1,20 @@
 /*页脚、底部样式*/
-{% load staticfiles%}
-.footer{
+{
+%
+load
+staticfiles
+%
+}
+.footer {
     background-color: #5bc0de;
     padding: 1px;
-    text-align:center;
-    position:fixed;
+    text-align: center;
+    position: fixed;
     bottom: 0;
     width: 100%;
 }
-.re_top{
+
+.re_top {
     background-color: #eea236;
     width: 50px;
     height: 50px;
@@ -19,8 +25,10 @@
     background-size: 50px;
     background-image: url("../img/re_top.png");
 }
-.bgp{
-    background: url("../img/bgt.jpg") repeat center 200% fixed;
+
+.bgp {
+    background-color: aliceblue;
+    /*background: url("../img/bgt.jpg") repeat center 200% fixed;*/
     /*background-color 背景颜色*/
     /*background-image   背景图片地址*/
     /*background-repeat  是否平铺 默认是平铺*/
@@ -33,4 +41,11 @@
 
     /*合写： background： 背景颜色 背景图片地址 背景平铺 背景滚动 背景位置*/
     /*background: #000 url(image/sst.jpg) no-repeat center -25px fixed;}*/
+}
+
+.article {
+    height: 300px;
+    width: 60%;
+    margin-left: 20%;
+    overflow: auto;
 }

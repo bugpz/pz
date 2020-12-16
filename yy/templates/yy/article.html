@@ -2,12 +2,11 @@
 {% block content %}
     {% load staticfiles %}
     {% for data in article %}
-        {% autoescape off%}
-        <div>
-            <h1 id="">{{ data.title }}</h1>
-            <p id="body-content">{{ data.body }}</p>
-        </div>
+        {% autoescape off %}
+            <div class="article">
+                <h1 id="">{{ data.title }}</h1>
+                <p id="body-content">{{ data.body }}</p>
+            </div>
         {% endautoescape %}
     {% endfor %}
-    <div>ddf</div>
 {% endblock %}
