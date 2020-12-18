@@ -24,8 +24,8 @@ onload = function navigation() {
                 'http://www.xiachufang.com/':'xiachufang'
                 }
     for(var i in body){
-        $(d).append('<div style="width: 100px; float: left;"><a href='+i +' '+' target="_blank">\n' +
-        '        <img src="/static/UI/icon/'+body[i]+'.png\  ">\n' +
+        $(d).append('<div style="width: 25%; float: left;"><a href='+i +' '+' target="_blank">\n' +
+        '        <img style="width: 32px; height: 32px;" src="/static/UI/icon/'+body[i]+'.png\  ">\n' +
         '        <span data-v-ed292c2c="">'+body[i]+'</span>\n' +
         '    </a></div>')
     }
