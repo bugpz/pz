@@ -15,8 +15,10 @@ from .forms import UserForm, RegisterForm
 
 def index(request):
     art = models.Article.objects.all().order_by('id')
+    art_num =models.Article.objects.count()
     artlist = {
-        'art': art
+        'art': art,
+        'art_n':art_num
     }
     return render(request, 'yy/index.html', artlist)
 
