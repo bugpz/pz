@@ -4,7 +4,7 @@
     {% for data in article %}
         {% autoescape off %}
             <div class="article">
-                <h1 id="">{{ data.title }}</h1>
+                <h1 style="color: #fbaeff">{{ data.title }}</h1>
                 <p id="body-content">{{ data.body }}</p>
             </div>
         {% endautoescape %}

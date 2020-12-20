@@ -27,7 +27,7 @@ staticfiles
 }
 
 .bgp {
-    background-color: aliceblue;
+    background-color: #F0F8FF;
     /*background: url("../img/bgt.jpg") repeat center 200% fixed;*/
     /*background-color 背景颜色*/
     /*background-image   背景图片地址*/
@@ -45,7 +45,24 @@ staticfiles
 
 .article {
     height: 300px;
-    width: 60%;
+    width: 20%;
     margin-left: 20%;
     overflow: auto;
+    background-color: #f5ffcf;
+}
+.index_div1{
+    float: left;
+    margin-left: 10%;
+    width: 60%;
+}
+.index_div2{
+    float: left;
+    padding-left: 15px;
+    width: 25%;
+    height: 200px;
+    background-color: #ffc9e9;
+}
+.my_space_Navigation{
+    width: 33%;
+    text-align: center;
 }

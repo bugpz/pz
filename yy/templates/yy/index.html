@@ -7,12 +7,13 @@
     <script src="{% static 'js/jquery-3.4.1.js' %}"></script>
     <script src="{% static 'UI/js/upload.js' %}"></script>
 
+    <div class="index_div1">
     {% if request.session.is_login %}
         <!--    <h1>你好,{{ request.session.user_name }}！欢迎回来！</h1>-->
         <div class="article" id="article">
             {% for data in art %}
                 <span>
-                    <a href="{% url 'yy:page' data.id %}">{{ data.title }}</a>
+                    <a href="{% url 'yy:page' data.id %}" target="_blank">{{ data.title }}</a>
                 </span><br>
             {% endfor %}
             <span id="art_n">{{ art_n }}</span>
@@ -28,11 +29,24 @@
 
     {% else %}
         <h1>
-            <a href="https://www.aliyun.com/minisite/goods?userCode=qet4zxjy" style="color: crimson">
+            <a href="https://www.aliyun.com/minisite/goods?userCode=qet4zxjy" style="color: crimson" target="_blank">
                 阿里云产品长期活动
             </a>
         </h1>
     {% endif %}
+    </div>
+    <div class="index_div2" >
+        <div id="my_space" style="width: 90%; height: auto">
+            <div class="my_space_Navigation">
+                <div>
+                    <a href="https://github.com/bugpz" target="_blank" >
+                        <img src="{% static 'UI/icon/github.png' %}">
+                        <p>GitHub</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 {% endblock %}
