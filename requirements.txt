@@ -5,7 +5,7 @@ django-formtools==2.2
 django-import-export==2.1.0
 django-reversion==3.0.7
 PyMySQL==0.9.3
-PyYAML==3.12
+PyYAML==5.1
 requests==2.18.4
 urllib3==1.22
 xadmin2==2.0.3
