@@ -1,6 +1,12 @@
 function bg_color() {
     var bg_col_now = document.getElementById('nr').style.backgroundColor
-    if(bg_col_now ==='rgb(240, 248, 255)'){
+    var bg_cor_now1 = bg_col_now.substring(4,bg_col_now.length-1).replace(/\s/g," ")
+    var y = bg_cor_now1.split(",")
+    var r = parseInt(y[0]).toString(16).toUpperCase()
+    var g = parseInt(y[1]).toString(16).toUpperCase()
+    var b = parseInt(y[2]).toString(16).toUpperCase()
+    var rgb = "#"+r+g+b
+    if(rgb ==='#F0F8FF'){
         bg_col_now = '#22303f'
     }
     else {
