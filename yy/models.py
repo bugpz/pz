@@ -25,7 +25,6 @@ class Article(models.Model):
             return self.title
 
 
-
 class User(models.Model):
     # 用户表
     gender = (
