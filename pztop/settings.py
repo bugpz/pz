@@ -89,7 +89,7 @@ DATABASES = {
         'NAME':'YY',
         'USER':'root',
         'PASSWORD':'hl951103',
-        'HOST': '111.229.129.126',       # 47.97.200.189,
+        'HOST': '106.13.171.218',       # 47.97.200.189,
         'PORT':'3306',
         'TEST':{
             'CHARSET':'utf8',
