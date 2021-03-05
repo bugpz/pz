@@ -2,6 +2,8 @@
 
 > A Django project
 
+>python -V 3.7.8
+
 ## Build Setup
 
 ```　　
