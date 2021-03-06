@@ -1,9 +1,13 @@
 #PZ
 
 > A Django project
+    
+   项目正在龟速推进中
 
->python -V 3.7.8
+>服务器
 
+    python版本推荐 3.6.6
+    系统: centOS7
 ## Build Setup
 
 ```　　
