@@ -4,13 +4,57 @@ import os
 
 from django.contrib import auth
 from django.contrib.auth.hashers import make_password
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-
+import json
+from django.http import JsonResponse
 from pztop import settings
 from yy import models
 from .forms import UserForm, RegisterForm
+from rest_framework import viewsets
+from yy.serializers import UserSerializer, GroupSerializer
+
+
+# class UserViewSet(viewsets.ModelViewSet):
+#     """
+#         retrieve:
+#             返回用户实例
+#         list:
+#             返回所有用户，按最近加入的用户排序
+#         create:
+#             创建新用户
+#         delete:
+#             删除现有用户
+#         partial_update:
+#             更新现有用户上的一个或多个字段
+#         update:
+#             更新用户
+#     """
+#     '''查看，编辑用户的界面'''
+#     queryset = User.objects.all().order_by('id')
+#     serializer_class = UserSerializer
+#     print(serializer_class, type(serializer_class))
+
+
+class GroupViewSet(viewsets.ModelViewSet):
+    '''
+        retrieve:
+            返回组实例
+        list:
+            返回按最近加入的组排序的所有组
+        create:
+            创建新组
+        delete:
+            删除现有组
+        partial_update:
+            更新现有组上的一个或多个字段
+        update:
+            更新一个组
+    '''
+    '''查看，编辑组的界面'''
+    queryset = Group.objects.all()
+    serializer_class = GroupSerializer
 
 
 def index(request):
@@ -26,7 +70,10 @@ def index(request):
 def register(request):
     if request.session.get('is_login', None):
         # 登录状态不允许注册。你可以修改这条原则！
-        return redirect("/index/")
+        return JsonResponse({
+            'code': 401,
+            'message': '登录状态不能注册'
+        })
     if request.method == "POST":
         register_form = RegisterForm(request.POST)
         # message = "请检查填写的内容！"
@@ -39,7 +86,9 @@ def register(request):
             sex = register_form.cleaned_data['sex']
             if password1 != password2:  # 判断两次密码是否相同
                 message = "两次输入的密码不同！"
-                return render(request, 'yy/register.html', locals())
+                return JsonResponse({
+                    'message': '两次密码不同,请重新输入'
+                })
             else:
                 same_name_user = User.objects.filter(username=username)
                 if same_name_user:  # 用户名唯一
@@ -48,7 +97,9 @@ def register(request):
                 same_email_user = User.objects.filter(email=email)
                 if same_email_user:  # 邮箱地址唯一
                     message = '该邮箱地址已被注册，请使用别的邮箱！'
-                    return render(request, 'yy/register.html', locals())
+                    return JsonResponse({
+                        'message': '该邮箱地址已被注册，请使用别的邮箱！'
+                    })
 
                 # 当一切都OK的情况下，创建新用户
 
@@ -60,8 +111,10 @@ def register(request):
                 # new_user.is_active = True 活跃用户默认
                 new_user.is_staff = True  # 是否可以登录后台
                 new_user.save()
-                message = "恭喜你注册成功！3秒后跳转"
-                return redirect('/wait/')
+                return JsonResponse({
+                    'code': 200,
+                    'message': '注册成功'
+                })
 
                 # code = make_confirm_string(new_user)
                 # send_email(email, code)
@@ -69,7 +122,9 @@ def register(request):
                 # message = '请前往注册邮箱，进行邮件确认！'
                 # return render(request, 'yy/confirm.html', locals())  # 跳转到等待邮件确认页面。
     register_form = RegisterForm()
-    return render(request, 'yy/register.html', locals())
+    return JsonResponse({
+        'message': '？？？'
+    })
 
 
 def login(request):
@@ -179,3 +234,15 @@ def Navigation(request):
 
 def wait(request):
     return render(request, "yy/wait.html")
+
+
+def test(request):
+    if request.method == 'POST':
+        print(request.body.decode("utf-8"))
+        return JsonResponse({
+            'code': '对方水电费'
+        })
+    else:
+        return JsonResponse({
+            '不对': '是的'
+        })
