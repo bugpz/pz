@@ -14,7 +14,7 @@ from yy import models
 from .forms import UserForm, RegisterForm
 from rest_framework import viewsets
 from yy.serializers import UserSerializer, GroupSerializer
-
+from django.contrib.auth import models as aaa
 
 # class UserViewSet(viewsets.ModelViewSet):
 #     """
@@ -238,9 +238,15 @@ def wait(request):
 
 def test(request):
     if request.method == 'POST':
-        print(request.body.decode("utf-8"))
+        # username = json.loads(request.body.decode("utf-8")).get("username")
+        print(request.POST)
+        print(request.body)
+        data = request.body.decode("utf-8")
+        print(data)
+        username = json.loads(data).get("username")
+        ss = aaa.User.objects.get(username=username)
         return JsonResponse({
-            'code': '对方水电费'
+            'message': 'success'
         })
     else:
         return JsonResponse({
