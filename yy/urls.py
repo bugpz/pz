@@ -7,5 +7,6 @@ urlpatterns = [
     url(r'^article/(?P<article_id>[0-9]+)$', views.articleinfo, name='page'),
     path('register', views.register, name='register'),
     path('test', views.test, name='test'),
-    path('test1', views.test1, name='t1')
+    path('test1', views.test1, name='t1'),
+    path('t2', views.Test1.as_view())
 ]
