@@ -244,11 +244,19 @@ def test(request):
         data = request.body.decode("utf-8")
         print(data)
         username = json.loads(data).get("username")
-        ss = aaa.User.objects.get(username=username)
-        return JsonResponse({
-            'message': 'success'
-        })
+        ss = models.User.objects.values('username').filter(username=username)
+        S1 = list(ss)
+        return JsonResponse(S1, safe=False)
     else:
         return JsonResponse({
             '不对': '是的'
         })
+
+
+def test1(request):
+    # from datetime import date
+    if request.method == 'POST':
+        username = json.loads(request.body.decode("utf-8")).get("username")
+        a = models.User.objects.values('id', 'username', 'creattime', 'password', 'email', 'sex').filter(username=username)
+        b = list(a)
+        return JsonResponse(b, safe=False)
