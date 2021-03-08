@@ -13,7 +13,7 @@ from pztop import settings
 from yy import models
 from .forms import UserForm, RegisterForm
 from rest_framework import viewsets
-from yy.serializers import UserSerializer, GroupSerializer
+from yy.serializers import UserSerializer, GroupSerializer, YYUserSerializer
 from django.contrib.auth import models as aaa
 
 # class UserViewSet(viewsets.ModelViewSet):
@@ -260,3 +260,42 @@ def test1(request):
         a = models.User.objects.values('id', 'username', 'creattime', 'password', 'email', 'sex').filter(username=username)
         b = list(a)
         return JsonResponse(b, safe=False)
+
+
+from rest_framework.generics import GenericAPIView
+
+
+
+class Test1(GenericAPIView):
+    from rest_framework.permissions import AllowAny
+    serializer_class = YYUserSerializer
+    permission_classes = (AllowAny,)
+    @staticmethod
+    def post(request, *args, **kwargs):
+        username = request
+        print(username)
+        # username = json.loads(request.body.decode("utf-8")).get("username")
+        a = models.User.objects.values('id', 'username', 'creattime', 'password', 'email', 'sex').filter(
+            username=username)
+        b = list(a)
+        return JsonResponse(b, safe=False)
+
+
+class YYUserViewSet(viewsets.ModelViewSet):
+    '''
+        retrieve:
+            返回组实例
+        list:
+            返回按最近加入的组排序的所有组
+        create:
+            创建新组
+        delete:
+            删除现有组
+        partial_update:
+            更新现有组上的一个或多个字段
+        update:
+            更新一个组
+    '''
+    '''查看，编辑组的界面'''
+    queryset = User.objects.all()
+    serializer_class = YYUserSerializer
