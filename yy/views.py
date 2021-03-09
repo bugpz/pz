@@ -265,21 +265,19 @@ def test1(request):
 from rest_framework.generics import GenericAPIView
 
 
-
 class Test1(GenericAPIView):
     from rest_framework.permissions import AllowAny
     serializer_class = YYUserSerializer
     permission_classes = (AllowAny,)
-    @staticmethod
-    def post(request, *args, **kwargs):
-        username = request
+
+    def post (self, request):
+        username = json.loads(request.body.decode("utf-8")).get("username")
         print(username)
         # username = json.loads(request.body.decode("utf-8")).get("username")
         a = models.User.objects.values('id', 'username', 'creattime', 'password', 'email', 'sex').filter(
             username=username)
         b = list(a)
         return JsonResponse(b, safe=False)
-
 
 class YYUserViewSet(viewsets.ModelViewSet):
     '''

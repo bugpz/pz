@@ -55,6 +55,6 @@ urlpatterns = [
                   # 富文本编辑器
                   path('ckeditror/', include('ckeditor_uploader.urls')),
                   # path(r'article/',views.article),
-                  url(r'^blog/', include('yy.urls', namespace='yy')),
+                  # url(r'^blog/', include('yy.urls', namespace='yy')),
                   path('api/', include('yy.urls'))
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
