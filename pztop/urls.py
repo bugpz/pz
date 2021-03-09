@@ -42,7 +42,7 @@ urlpatterns = [
                   # path(r'', views.index),
                   path('', include(router.urls)),
                   path(r'wait/', views.wait),
-                  path(r'register/', views.register),
+                  # path(r'register/', views.register),
                   path(r'login/', views.login),
                   path(r'logout/', views.logout),
                   path(r'index/', views.index),
