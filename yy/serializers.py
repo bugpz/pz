@@ -19,5 +19,6 @@ class YYUserSerializer(serializers.HyperlinkedModelSerializer):
     # username = serializers.CharField()
 
     class Meta:
-        model = models.User
-        fields = "__all__"
+        model = User
+        fields = ('username', 'password', 'email')
+        # "__all__"
