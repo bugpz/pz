@@ -3,6 +3,7 @@ from django.contrib.auth.models import User, Group
 from rest_framework import serializers
 from yy import models
 
+
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
@@ -19,6 +20,6 @@ class YYUserSerializer(serializers.HyperlinkedModelSerializer):
     # username = serializers.CharField()
 
     class Meta:
-        model = User
-        fields = ('username', 'password', 'email')
+        model = models.User
+        fields = ('username', 'password', 'email', 'sex', 'phone')
         # "__all__"
