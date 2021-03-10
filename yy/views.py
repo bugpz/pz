@@ -221,7 +221,7 @@ def robots(request):
 
 
 def articleinfo(request, article_id):
-    article = models.Article.objects.values('body', 'id', 'title', 'created_time').filter(id=article_id)
+    article = models.Article.objects.values('body', 'id', 'title', 'creatTime').filter(id=article_id)
     articlelist = {
         'article': article
     }

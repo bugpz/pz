@@ -7,7 +7,7 @@ from xadmin import views
 
 
 class ArticleAdmin(object):
-    list_display = ('id', 'title', 'created_time',)
+    list_display = ('id', 'title', 'creatTime',)
     list_display_links = ('title',)
 
 
