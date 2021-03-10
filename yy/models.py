@@ -1,6 +1,6 @@
 from django.db import models
 from ckeditor_uploader.fields import RichTextUploadingField
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
 
 
 # 如果数据库中的UserInfo(用户表)继承django内置AbstractUser 则需要导入下面的包
@@ -12,17 +12,17 @@ from django.contrib.auth.models import User
 class Article(models.Model):
     title = models.CharField('标题', max_length=70)
     body = RichTextUploadingField('内容', max_length=200, blank=True)
-    created_time = models.DateTimeField('发布时间')
+    creatTime = models.DateTimeField('发布时间')
 
     def __str__(self):
         return self.title  # 这段返回为页面显示的值
 
     class Meta:
-        verbose_name = '文章'
-        verbose_name_plural = '文章'
+        verbose_name = '增加文章'
+        verbose_name_plural = '文章管理'
 
         def __str__(self):
-            return self.title
+            return self.verbose_name_plural
 
 
 class User(models.Model):
@@ -35,7 +35,8 @@ class User(models.Model):
     password = models.CharField(max_length=256)
     email = models.EmailField(unique=True, verbose_name='邮箱')
     sex = models.CharField(max_length=10, choices=gender, default='男')
-    creattime = models.DateField(auto_now_add=True, verbose_name='创建时间')
+    createTime = models.DateField(auto_now_add=True, verbose_name='创建时间')
+    phone = models.IntegerField(max_length=11, verbose_name='手机号')
 
     def __str__(self):
         return self.username
@@ -45,5 +46,4 @@ class User(models.Model):
         verbose_name_plural = '用户管理'
 
         def __str__(self):
-            return self.name
-
+            return self.verbose_name_plural
