@@ -6,7 +6,7 @@ from . import models
 # Register your models here.
 
 class ArticleAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title', 'created_time',)
+    list_display = ('id', 'title', 'creatTime',)
     list_display_links = ('title',)
 
 
