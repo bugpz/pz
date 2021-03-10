@@ -36,7 +36,7 @@ class User(models.Model):
     email = models.EmailField(unique=True, verbose_name='邮箱')
     sex = models.CharField(max_length=10, choices=gender, default='男')
     createTime = models.DateField(auto_now_add=True, verbose_name='创建时间')
-    phone = models.IntegerField(max_length=11, verbose_name='手机号')
+    phone = models.CharField(max_length=12, verbose_name='手机号')
 
     def __str__(self):
         return self.username
