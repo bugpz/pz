@@ -1,13 +1,9 @@
 from django.contrib import admin
-from .models import Article, User
+# from .models import User
 from . import models
 
 
 # Register your models here.
-
-class ArticleAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title', 'creatTime',)
-    list_display_links = ('title',)
 
 
 class TestAdmin(admin.ModelAdmin):
@@ -24,6 +20,5 @@ class UserAdmin(admin.ModelAdmin):
 # admin.site.register(Test,TestAdmin)
 # admin.site.register(User,UserAdmin)
 admin.site.register(models.User)
-admin.site.register(models.Article)
-admin.site.site_header = 'BUGPZ后台'
-admin.site.site_title = 'BUGPZ.TOP'
+admin.site.site_header = '后台管理'
+admin.site.site_title = 'BUG.TOP'

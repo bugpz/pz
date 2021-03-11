@@ -1,6 +1,6 @@
-from django.contrib import admin
-from .models import Article, User
-from . import models
+# from django.contrib import admin
+from .models import User
+# from . import models
 # Register your models here.
 import xadmin
 from xadmin import views
@@ -22,16 +22,14 @@ class UserAdmin(object):
 
 
 class GlobalSetting(object):
-    site_title = 'BUGPZ'
-    site_footer = 'BUGPZ.XYZ'
+    site_title = 'BUG'
+    site_footer = 'BUG.XYZ'
 
 
 # admin.site.register(Article,ArticleAdmin)
 # admin.site.register(Test,TestAdmin)
 # admin.site.register(User,UserAdmin)
-# xadmin.site.register(Article,ArticleAdmin)
 xadmin.site.register(views.CommAdminView, GlobalSetting)
 xadmin.site.register(User, UserAdmin)
-xadmin.site.register(Article, ArticleAdmin)
-xadmin.site.site_header = 'BUGPZ后台'
-xadmin.site.site_title = 'BUGPZ.TOP'
+xadmin.site.site_header = '后台管理'
+xadmin.site.site_title = 'BUG.TOP'
