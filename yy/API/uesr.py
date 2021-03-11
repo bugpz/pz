@@ -96,5 +96,5 @@ class Register(GenericAPIView):
         # new_user.is_staff = True  # 是否可以登录后台
         new_user.save()
         return JsonResponse({
-            'message': '注册成功'
+            'message': '尊敬的' + username + ',恭喜你注册成功'
         })
