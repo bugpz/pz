@@ -1,5 +1,5 @@
 from django.db import models
-from ckeditor_uploader.fields import RichTextUploadingField
+# from ckeditor_uploader.fields import RichTextUploadingField
 # from django.contrib.auth.models import User
 
 
@@ -7,22 +7,6 @@ from ckeditor_uploader.fields import RichTextUploadingField
 # from django.contrib.auth.models import AbstractUser
 # 并在settings文件添加AUTH_USER_MODEL = "应用名.UserInfo"
 # Create your models here.
-
-
-class Article(models.Model):
-    title = models.CharField('标题', max_length=70)
-    body = RichTextUploadingField('内容', max_length=200, blank=True)
-    creatTime = models.DateTimeField('发布时间')
-
-    def __str__(self):
-        return self.title  # 这段返回为页面显示的值
-
-    class Meta:
-        verbose_name = '增加文章'
-        verbose_name_plural = '文章管理'
-
-        def __str__(self):
-            return self.verbose_name_plural
 
 
 class User(models.Model):
@@ -47,3 +31,10 @@ class User(models.Model):
 
         def __str__(self):
             return self.verbose_name_plural
+
+
+class Token(models.Model):
+    phone = models.CharField(max_length=12, verbose_name='手机号')
+    token = models.CharField(max_length=256, verbose_name='token')
+    status = models.BooleanField
+    createTime = models.DateTimeField(auto_now_add=True, verbose_name='创建时间')
