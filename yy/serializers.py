@@ -23,3 +23,9 @@ class YYUserSerializer(serializers.HyperlinkedModelSerializer):
         model = models.User
         fields = ('username', 'password', 'email', 'sex', 'phone')
         # "__all__"
+
+
+class YYUserLogin(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = models.User
+        fields = ('phone', 'password')
