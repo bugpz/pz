@@ -11,8 +11,8 @@ from django.http import JsonResponse
 from yy import models
 from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import AllowAny
-from yy.serializers import YYUserSerializer
-
+from yy.serializers import YYUserSerializer, YYUserLogin
+import hashlib
 
 # class Register(GenericAPIView):
 #     """
@@ -52,6 +52,8 @@ from yy.serializers import YYUserSerializer
 #         return JsonResponse({
 #             'message': '注册成功'
 #         })
+md5 = hashlib.md5()
+
 
 class Register(GenericAPIView):
     """
@@ -67,6 +69,7 @@ class Register(GenericAPIView):
         email = json.loads(request.body.decode("utf-8")).get("email")
         sex = json.loads(request.body.decode("utf-8")).get("sex")
         phone = json.loads(request.body.decode("utf-8")).get("phone")
+        password = md5.hexdigest()
         password = make_password(password)
         same_name_user = models.User.objects.filter(username=username)
         if same_name_user:  # 用户名唯一
@@ -98,3 +101,27 @@ class Register(GenericAPIView):
         return JsonResponse({
             'message': '尊敬的' + username + ',恭喜你注册成功'
         })
+
+
+class Login(GenericAPIView):
+    serializer_class = YYUserLogin
+    permission_classes = (AllowAny,)
+
+    def post(self, request):
+        phone = json.loads(request.body.decode('utf-8')).get('phone')
+        password = make_password(json.loads(request.body.decode('utf-8')).get('password'))
+        same_phone = models.User.objects.filter(phone=phone)
+        same_password = models.User.objects.values('password').filter(phone=phone)
+        if same_phone:
+            if same_password:
+                return JsonResponse({
+                    'message': '欢迎登录'
+                })
+            else:
+                return JsonResponse({
+                    'message': '密码错误，请重新输入'
+                })
+        else:
+            return JsonResponse({
+                'message': '此手机号尚未注册，请先注册'
+            })
