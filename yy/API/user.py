@@ -115,9 +115,9 @@ class Login(GenericAPIView):
         password = json.loads(request.body.decode('utf-8')).get('password')
         md5.update(password.encode(encoding='utf-8'))
         password = md5.hexdigest()
-        same_phone = models.User.objects.filter(phone=phone)
-        user = models.User.objects.get(phone=phone)
+        same_phone = models.User.objects.filter(phone=phone).exists()  # exists()返回bool类型
         if same_phone:
+            user = models.User.objects.get(phone=phone)
             if check_password(password, user.password):
                 return JsonResponse({
                     'message': '欢迎登录'
