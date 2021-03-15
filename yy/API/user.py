@@ -5,7 +5,7 @@
 # from django.http import HttpResponse
 # from django.shortcuts import render, redirect
 # from pztop import settings
-from django.contrib.auth.hashers import make_password
+from django.contrib.auth.hashers import make_password, check_password
 import json
 from django.http import JsonResponse
 from yy import models
@@ -13,6 +13,7 @@ from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import AllowAny
 from yy.serializers import YYUserSerializer, YYUserLogin
 import hashlib
+
 
 # class Register(GenericAPIView):
 #     """
@@ -52,7 +53,6 @@ import hashlib
 #         return JsonResponse({
 #             'message': '注册成功'
 #         })
-md5 = hashlib.md5()
 
 
 class Register(GenericAPIView):
@@ -64,11 +64,13 @@ class Register(GenericAPIView):
     permission_classes = (AllowAny,)
 
     def post(self, request):
+        md5 = hashlib.md5()
         username = json.loads(request.body.decode("utf-8")).get("username")
         password = json.loads(request.body.decode("utf-8")).get("password")
         email = json.loads(request.body.decode("utf-8")).get("email")
         sex = json.loads(request.body.decode("utf-8")).get("sex")
         phone = json.loads(request.body.decode("utf-8")).get("phone")
+        md5.update(password.encode(encoding='utf-8'))  # 密码md5加密
         password = md5.hexdigest()
         password = make_password(password)
         same_name_user = models.User.objects.filter(username=username)
@@ -108,12 +110,15 @@ class Login(GenericAPIView):
     permission_classes = (AllowAny,)
 
     def post(self, request):
+        md5 = hashlib.md5()
         phone = json.loads(request.body.decode('utf-8')).get('phone')
-        password = make_password(json.loads(request.body.decode('utf-8')).get('password'))
+        password = json.loads(request.body.decode('utf-8')).get('password')
+        md5.update(password.encode(encoding='utf-8'))
+        password = md5.hexdigest()
         same_phone = models.User.objects.filter(phone=phone)
-        same_password = models.User.objects.values('password').filter(phone=phone)
+        user = models.User.objects.get(phone=phone)
         if same_phone:
-            if same_password:
+            if check_password(password, user.password):
                 return JsonResponse({
                     'message': '欢迎登录'
                 })
