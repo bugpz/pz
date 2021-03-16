@@ -64,14 +64,14 @@ class Register(GenericAPIView):
     permission_classes = (AllowAny,)
 
     def post(self, request):
-        md5 = hashlib.md5()
+        # md5 = hashlib.md5()
         username = json.loads(request.body.decode("utf-8")).get("username")
         password = json.loads(request.body.decode("utf-8")).get("password")
         email = json.loads(request.body.decode("utf-8")).get("email")
         sex = json.loads(request.body.decode("utf-8")).get("sex")
         phone = json.loads(request.body.decode("utf-8")).get("phone")
-        md5.update(password.encode(encoding='utf-8'))  # 密码md5加密
-        password = md5.hexdigest()
+        # md5.update(password.encode(encoding='utf-8'))  # 密码md5加密
+        # password = md5.hexdigest()
         password = make_password(password)
         same_name_user = models.User.objects.filter(username=username)
         if same_name_user:  # 用户名唯一
@@ -110,11 +110,11 @@ class Login(GenericAPIView):
     permission_classes = (AllowAny,)
 
     def post(self, request):
-        md5 = hashlib.md5()
+        # md5 = hashlib.md5()
         phone = json.loads(request.body.decode('utf-8')).get('phone')
         password = json.loads(request.body.decode('utf-8')).get('password')
-        md5.update(password.encode(encoding='utf-8'))
-        password = md5.hexdigest()
+        # md5.update(password.encode(encoding='utf-8'))
+        # password = md5.hexdigest()
         same_phone = models.User.objects.filter(phone=phone).exists()  # exists()返回bool类型
         if same_phone:
             user = models.User.objects.get(phone=phone)
